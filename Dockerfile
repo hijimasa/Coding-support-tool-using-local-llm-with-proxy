@@ -28,7 +28,8 @@ RUN python3 llama.cpp/convert_hf_to_gguf.py --outfile DeepSeek-R1-Distill-Qwen-3
 
 RUN curl -fsSL https://ollama.com/install.sh -O && \
     bash ./install.sh
-RUN echo 'FROM ./DeepSeek-R1-Distill-Qwen-32B.gguf' > Modelfile_DeepSeek-R1-Distill-Qwen-32B
+#RUN echo 'FROM ./DeepSeek-R1-Distill-Qwen-32B.gguf' > Modelfile_DeepSeek-R1-Distill-Qwen-32B
+COPY Modelfile_DeepSeek-R1-Distill-Qwen-32B /
 
 RUN echo '#!/bin/bash\nollama serve &\nsleep 5\nollama create DeepSeek-R1-Distill-Qwen-32B -f Modelfile_DeepSeek-R1-Distill-Qwen-32B\n' > /launch_ollama_server.sh
 RUN chmod +x /launch_ollama_server.sh
