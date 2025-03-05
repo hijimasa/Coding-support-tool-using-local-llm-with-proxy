@@ -52,7 +52,7 @@ Clineのようにプロンプトを入力してあとは任せるような形で
    bash ./build_docker.sh
    ```
 
-4. コンテナを立ち上げる(launch_container.sh内のプロキシ設定を適宜変更して立ち上げること)
+4. コンテナを立ち上げる
 
    ```
    bash ./launch_container.sh
