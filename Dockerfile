@@ -1,4 +1,4 @@
-FROM ubuntu:22.04 as builder
+FROM nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -22,23 +22,20 @@ RUN git clone https://github.com/ggerganov/llama.cpp && \
     cmake --build build --config Release
 RUN git clone https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B && \
     cd DeepSeek-R1-Distill-Qwen-32B && \
-    git lfs pull
-RUN python3 llama.cpp/convert_hf_to_gguf.py --outfile DeepSeek-R1-Distill-Qwen-32B.gguf DeepSeek-R1-Distill-Qwen-32B
-RUN rm -r DeepSeek-R1-Distill-Qwen-32B
+    git lfs pull &&
+    python3 llama.cpp/convert_hf_to_gguf.py --outfile DeepSeek-R1-Distill-Qwen-32B.gguf DeepSeek-R1-Distill-Qwen-32B &&
+    rm -r DeepSeek-R1-Distill-Qwen-32B &&
+    llama.cpp/build/bin/llama-quantize DeepSeek-R1-Distill-Qwen-32B.gguf DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf Q4_K_M &&
+    rm DeepSeek-R1-Distill-Qwen-32B.gguf
 
 RUN git clone https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct && \
     cd DeepSeek-Coder-V2-Lite-Instruct && \
-    git lfs pull
-RUN python3 llama.cpp/convert_hf_to_gguf.py --outfile DeepSeek-Coder-V2-Lite-Instruct.gguf DeepSeek-Coder-V2-Lite-Instruct
-RUN rm -r DeepSeek-Coder-V2-Lite-Instruct
+    git lfs pull &&
+    python3 llama.cpp/convert_hf_to_gguf.py --outfile DeepSeek-Coder-V2-Lite-Instruct.gguf DeepSeek-Coder-V2-Lite-Instruct &&
+    rm -r DeepSeek-Coder-V2-Lite-Instruct &&
+    llama.cpp/build/bin/llama-quantize DeepSeek-Coder-V2-Lite-Instruct.gguf DeepSeek-Coder-V2-Lite-Instruct-Q4_K_M.gguf Q4_K_M &&
+    rm DeepSeek-Coder-V2-Lite-Instruct.gguf
 
-RUN llama.cpp/build/bin/llama-quantize DeepSeek-R1-Distill-Qwen-32B.gguf DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf Q4_K_M
-RUN llama.cpp/build/bin/llama-quantize DeepSeek-Coder-V2-Lite-Instruct.gguf DeepSeek-Coder-V2-Lite-Instruct-Q4_K_M.gguf Q4_K_M
-
-FROM ollama/ollama:latest
-
-COPY --from=builder DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf /
-COPY --from=builder DeepSeek-Coder-V2-Lite-Instruct-Q4_K_M.gguf /
 COPY Modelfile_DeepSeek-R1-Distill-Qwen-32B /
 RUN echo 'FROM ./DeepSeek-Coder-V2-Lite-Instruct-Q4_K_M.gguf' > Modelfile_DeepSeek-Coder-V2-Lite-Instruct
 
