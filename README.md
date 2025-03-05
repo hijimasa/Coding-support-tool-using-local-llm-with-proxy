@@ -88,5 +88,8 @@ Clineのようにプロンプトを入力してあとは任せるような形で
    （外しておかないと、匿名の使用情報が収集されてしまうので注意すること）
 
 ## 参考URL
-- Clineに対応させるためにModefileを編集する必要があったため、以下のサイトを参考にした
+- Clineに対応させるためにModefileを編集する必要があったため、以下のサイトを参考にしています
   https://note.com/cppp_cpchan/n/n92c7795f5939#825209eb-6a46-4197-90b7-15ad73c7ae8e
+
+- Continueに関する参考サイトです
+  https://qiita.com/SH2/items/1d5ee5b898046ff89458
