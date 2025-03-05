@@ -23,7 +23,9 @@ Clineのようにプロンプトを入力してあとは任せるような形で
 
 ## ローカルLLMサーバー導入手順
 
-1. 以下のjsonのひな形を元に、~/.docker/config.jsonファイルを書き換えてDockerのプロキシを設定する
+1. /etc/environmentなどにHTTP_PROXYやHTTPS_PROXYの設定を記述しておく
+
+2. 以下のjsonのひな形を元に、~/.docker/config.jsonファイルを書き換えてDockerのプロキシを設定する
 
    ```json
    {
@@ -39,20 +41,22 @@ Clineのようにプロンプトを入力してあとは任せるような形で
    }
    ```
 
-2. 本リポジトリをサーバー機にクローンする
+3. 本リポジトリをサーバー機にクローンする
 
    ```
    git clone https://github.com/hijimasa/Cline_for_local_llm_with_proxy.git
    ```
 
-3. Dockerイメージをビルドする
+4. Dockerイメージをビルドする
 
    ```
    cd Cline_for_local_llm_with_proxy
    bash ./build_docker.sh
    ```
 
-4. コンテナを立ち上げる
+5. コンテナを立ち上げる
+
+   HTTP_PROXYなどの環境変数の設定が反映されるようになっています。
 
    ```
    bash ./launch_container.sh
@@ -75,9 +79,11 @@ Clineのようにプロンプトを入力してあとは任せるような形で
 2. 左端に表示されるアイコンをクリックして、Continueの画面を開く
 
 3. 画像のような画面が表示されるので、右上の歯車のアイコンをクリックして設定画面を開く
+
    ![continue_main](./figs/continue_main.png)
 
 4. 「Open Config File」ボタンをクリックしてConfigファイルを開く
+
    ![continue_setting](./figs/continue_setting.png)
 
 5. [サンプルのconfigファイル](./sample_continue_config.json)のように設定を更新する（ただし、サーバーアドレスはサーバーに合わせて適宜変更すること）
@@ -85,7 +91,7 @@ Clineのようにプロンプトを入力してあとは任せるような形で
 6. メニューバーの「ファイル」->「ユーザ設定」->「設定」からProxyを検索して、「Http: No Proxy」にサーバーのIPアドレスを指定する
 
 7. 「ファイル」->「ユーザ設定」->「設定」->「Continue: Telemetry Enabled」のチェックを外す。
-   （外しておかないと、匿名の使用情報が収集されてしまうので注意すること）
+   （外しておかないと、匿名化されるとはいえ使用情報が収集されてしまうので注意すること）
 
 ## 参考URL
 - Clineに対応させるためにModefileを編集する必要があったため、以下のサイトを参考にしています
