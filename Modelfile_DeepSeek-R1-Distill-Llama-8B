@@ -1,4 +1,4 @@
-FROM ./DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf
+FROM ./DeepSeek-R1-Distill-Llama-8B-Q4_K_M.gguf
 PARAMETER temperature 0.1
 PARAMETER num_ctx 16384
 PARAMETER stop "User:"
