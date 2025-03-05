@@ -36,6 +36,9 @@ RUN git clone https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct
     llama.cpp/build/bin/llama-quantize DeepSeek-Coder-V2-Lite-Instruct.gguf DeepSeek-Coder-V2-Lite-Instruct-Q4_K_M.gguf Q4_K_M &&
     rm DeepSeek-Coder-V2-Lite-Instruct.gguf
 
+RUN curl -fsSL https://ollama.com/install.sh -O && \
+    bash ./install.sh
+
 COPY Modelfile_DeepSeek-R1-Distill-Qwen-32B /
 RUN echo 'FROM ./DeepSeek-Coder-V2-Lite-Instruct-Q4_K_M.gguf' > Modelfile_DeepSeek-Coder-V2-Lite-Instruct
 
