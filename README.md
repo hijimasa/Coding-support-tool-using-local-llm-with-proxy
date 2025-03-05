@@ -1,6 +1,6 @@
-# Cline_for_local_llm_with_proxy
+# Coding-support-tool-using-local-llm-with-proxy
 
-このリポジトリはollamaを使ってローカルLLMサーバーを立ち上げて、ClineやContinueといった開発支援ツールを動作させるまでの手順を示したリポジトリです。
+このリポジトリはプロキシ環境下でollamaを使ってローカルLLMサーバーを立ち上げて、ClineやContinueといったコーディング支援ツールを動作させるまでの手順を示したリポジトリです。
 
 ## ローカルLLMによる開発支援ツールとは
 
